@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* 既存のstyle.cssを邪魔せず、メインをオシャレに見せる追加の上書き用スタイル */
   body {
     font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     letter-spacing: 0.03em;
@@ -130,8 +129,8 @@
       あわせて、カナダでの一人暮らしやコミュニティ作りについてのコラムも読めます。
     </p>
     <div class="hero-actions">
-      <a href="quiz.html" class="btn btn-primary">クイズを始める</a>
-      <a href="column.html" class="btn btn-ghost">生活コラムを読む</a>
+      <a href="quiz.html?mode=phrase" class="btn btn-primary">フレーズクイズを始める</a>
+      <a href="quiz.html?mode=word" class="btn btn-ghost" style="margin-left:10px; background:#white;">単語クイズを始める</a>
     </div>
   </div>
 </section>
@@ -170,17 +169,23 @@
       <h2 style="font-size:clamp(22px,3vw,28px); color: #1b4332;">今日はどちらから始めますか?</h2>
     </div>
 
-    <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
-      <a href="quiz.html" class="link-card">
+    <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <a href="quiz.html?mode=phrase" class="link-card">
         <span class="icon-tag">🩺</span>
-        <h3>単語・定型文クイズ</h3>
-        <p style="color: #64748b; font-size: 0.95rem;">「臨床短文フレーズ50問」または新設の「現場用アナトミー単語50問」から自由に選んで挑戦。完全ランダムの4択形式です。</p>
-        <span class="go">クイズに挑戦する →</span>
+        <h3>臨床短文フレーズ</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">「うつ伏せになってください」など、現場での体位指示や会話フレーズ（50問）からランダム出題。</p>
+        <span class="go">フレーズクイズへ →</span>
+      </a>
+      <a href="quiz.html?mode=word" class="link-card">
+        <span class="icon-tag">🦴</span>
+        <h3>現場必須の重要単語</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">筋肉（僧帽筋など）や骨、痛みの症状、カルテ用語（50問）を英単語から日本語4択で当てるテスト。</p>
+        <span class="go">単語クイズへ →</span>
       </a>
       <a href="column.html" class="link-card">
         <span class="icon-tag">🍁</span>
         <h3>カナダ生活コラム</h3>
-        <p style="color: #64748b; font-size: 0.95rem;">一人暮らしの自立、恋愛事情、結婚とビザ、コミュニティ作り。渡加後のリアルな海外暮らしをイメージするための読み物です。</p>
+        <p style="color: #64748b; font-size: 0.95rem;">一人暮らしの自立、恋愛事情、結婚とビザ、コミュニティ作り。渡加後のリアルな暮らしの読み物です。</p>
         <span class="go">コラムを読む →</span>
       </a>
     </div>
@@ -190,7 +195,6 @@
 <footer class="site-footer" style="padding: 30px 0; border-top: 1px solid #e2e8f0; font-size: 0.85rem; color: #718096; background: white;">
   <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
     <span>© 2026 Therapist English for Canada</span>
-    <span>カナダで働くセラピストを目指す方のための英語学習サイト</span>
   </div>
 </footer>
 
