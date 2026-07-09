@@ -248,7 +248,7 @@
   let currentIndex = 0;
   let correctCount = 0;
   let answered = false;
-  let selectedModeValue = "phrase"; // デフォルトは短文
+  let selectedModeValue = "phrase"; // デフォルト
 
   const startScreen = document.getElementById('quiz-start');
   const playScreen = document.getElementById('quiz-play');
@@ -274,22 +274,40 @@
     }
   });
 
-  // ラジオボタンの選択を分かりやすくする視覚制御
+  // URLからモードを取得し、もしパラメータがあればその場でクイズを自動スタートさせる
+  function checkUrlParam() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const modeParam = urlParams.get('mode');
+    if (modeParam === 'word' || modeParam === 'phrase') {
+      selectMode(modeParam);
+      // パラメータが存在する場合はスタート画面をスキップして直接自動開始
+      startQuiz();
+    }
+  }
+
   function selectMode(mode) {
     selectedModeValue = mode;
     document.querySelectorAll('.mode-box').forEach(box => box.classList.remove('selected'));
     if (mode === 'phrase') {
-      document.querySelector('.mode-box:nth-child(1)').classList.add('selected');
+      const box1 = document.querySelector('.mode-box:nth-child(1)');
+      if(box1) box1.classList.add('selected');
+      const radio1 = document.getElementById('mode-phrase');
+      if(radio1) radio1.checked = true;
     } else {
-      document.querySelector('.mode-box:nth-child(2)').classList.add('selected');
+      const box2 = document.querySelector('.mode-box:nth-child(2)');
+      if(box2) box2.classList.add('selected');
+      const radio2 = document.getElementById('mode-word');
+      if(radio2) radio2.checked = true;
     }
   }
 
   function startQuiz() {
-    // 選択されたモードを引数に渡してクイズをビルド
+    // 選択されたモードのデータを読み込む
     quizSet = buildQuizSet(selectedModeValue, TOTAL_QUESTIONS);
     currentIndex = 0;
     correctCount = 0;
+    
+    // 画面の表示切り替え
     startScreen.classList.add('hidden');
     resultScreen.classList.add('hidden');
     playScreen.classList.remove('hidden');
@@ -298,9 +316,10 @@
 
   function renderQuestion() {
     answered = false;
+    if (!quizSet || quizSet.length === 0) return; // データが入っていない場合の安全対策
+    
     const q = quizSet[currentIndex];
     
-    // モードによって問題文上の見出しを変更
     questionLabel.textContent = (selectedModeValue === "word") ? "この英単語の意味は?" : "この英文の意味は?";
     
     qCounter.textContent = `問題 ${currentIndex + 1} / ${quizSet.length}`;
@@ -363,6 +382,10 @@
       comment.textContent = '伸びしろがたくさんあります！繰り返しポチポチ挑戦して、体に馴染ませていきましょう。✊';
     }
   }
+
+  // 画面が開いた瞬間に、URLに「?mode=word」などが入っているかチェックして自動スタート
+  checkUrlParam();
+</script>
 </script>
 
 </body>
