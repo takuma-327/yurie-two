@@ -5,8 +5,105 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Therapist English for Canada | カナダ留学を目指すセラピストの英語学習</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* 既存のstyle.cssを邪魔せず、メインをオシャレに見せる追加の上書き用スタイル */
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .brand-mark {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: #1b4332;
+  }
+  .hero {
+    background: linear-gradient(135deg, #f4fdf4 0%, #e8f5e9 100%);
+    padding: 80px 0;
+    border-radius: 0 0 40px 40px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.4;
+    color: #1b4332;
+    margin-bottom: 20px;
+  }
+  .en-accent {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: #40916c;
+    border-bottom: 3px double #40916c;
+  }
+  .lead {
+    font-size: 1.1rem;
+    color: #4a5568;
+    max-width: 700px;
+    margin-bottom: 35px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-primary {
+    background-color: #40916c;
+    color: white;
+    box-shadow: 0 4px 14px rgba(64, 145, 108, 0.3);
+  }
+  .btn-primary:hover {
+    background-color: #1b4332;
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    border: 2px solid #40916c;
+    color: #40916c;
+    margin-left: 15px;
+  }
+  .btn-ghost:hover {
+    background-color: rgba(64, 145, 108, 0.05);
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+  }
+  .card, .link-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .link-card:hover {
+    transform: translateY(-5px);
+    border-color: #40916c;
+    box-shadow: 0 10px 25px rgba(64, 145, 108, 0.1);
+  }
+  .icon-tag {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 15px;
+  }
+  .link-card h3 {
+    font-size: 1.3rem;
+    color: #1b4332;
+    margin-bottom: 10px;
+  }
+  .link-card .go {
+    display: block;
+    margin-top: 20px;
+    color: #40916c;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
 
@@ -26,78 +123,72 @@
 
 <section class="hero">
   <div class="container">
-    <span class="hero-eyebrow">For therapists moving to Canada</span>
-    <h1>カナダで働く<span class="en-accent">セラピスト</span>になるための、<br>臨床英語と暮らしの学習サイト</h1>
+    <span class="hero-eyebrow" style="color: #40916c; text-transform: uppercase; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">For therapists moving to Canada</span>
+    <h1>カナダで働く<span class="en-accent">Therapist</span>になるための、<br>臨床英語と暮らしの学習サイト</h1>
     <p class="lead">
-      施術やカウンセリングの現場で実際に使う英語フレーズを、4択クイズで無理なく反復。
-      あわせて、カナダでの一人暮らしや恋愛、結婚、コミュニティ作りについてのコラムも読めます。
+      施術やカウンセリングの現場で実際に使う英語フレーズや、必須のアナトミー（解剖学単語）を4択クイズで無理なく反復。
+      あわせて、カナダでの一人暮らしやコミュニティ作りについてのコラムも読めます。
     </p>
     <div class="hero-actions">
-      <a href="quiz.html" class="btn btn-primary">単語クイズを始める</a>
+      <a href="quiz.html" class="btn btn-primary">クイズを始める</a>
       <a href="column.html" class="btn btn-ghost">生活コラムを読む</a>
     </div>
   </div>
-
-  <div class="container" style="margin-top:56px;">
-    <svg class="pulse-divider" viewBox="0 0 700 34" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,17 L200,17 L215,4 L230,30 L245,10 L260,17 L500,17 L515,4 L530,30 L545,10 L560,17 L700,17" />
-    </svg>
-  </div>
 </section>
 
-<section>
+<section style="padding: 60px 0;">
   <div class="container">
-    <div class="section-head">
-      <span class="kicker">How it works</span>
-      <h2 style="font-size:clamp(22px,3vw,28px);">3つのステップで学ぶ</h2>
+    <div class="section-head" style="text-align: center; margin-bottom: 40px;">
+      <span class="kicker" style="color: #40916c; font-weight: bold; font-size: 0.9rem;">How it works</span>
+      <h2 style="font-size:clamp(22px,3vw,28px); color: #1b4332;">3つのステップで学ぶ</h2>
     </div>
 
     <div class="grid-3">
       <div class="card">
-        <span class="step-num">01</span>
-        <h3>臨床フレーズを覚える</h3>
-        <p>「仰向けになってください」「深呼吸をしてください」など、現場で毎日使う指示文を50個収録。まずは意味を正しくインプット。</p>
+        <span class="step-num" style="font-size: 2.5rem; font-weight: bold; color: rgba(64,145,108,0.2); display: block; line-height: 1;">01</span>
+        <h3 style="margin: 10px 0; color: #1b4332;">臨床フレーズ・単語を習得</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">「うつ伏せ」などの体位指示や痛みの聞き取り用短文50個に加え、現場必須のアナトミー英単語50個を網羅。</p>
       </div>
       <div class="card">
-        <span class="step-num">02</span>
-        <h3>4択クイズで反復する</h3>
-        <p>ランダムに出題される10問の4択クイズで、覚えた表現を繰り返し確認。間違えた問題は正解とあわせて表示されます。</p>
+        <span class="step-num" style="font-size: 2.5rem; font-weight: bold; color: rgba(64,145,108,0.2); display: block; line-height: 1;">02</span>
+        <h3 style="margin: 10px 0; color: #1b4332;">2つのモードで反復テスト</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">「短文リスニング/リーディング」と「英単語50問」の2つの4択モードを搭載。ランダム生成で記憶を定着させます。</p>
       </div>
       <div class="card">
-        <span class="step-num">03</span>
-        <h3>暮らしの解像度を上げる</h3>
-        <p>単語だけでなく、渡加後の自立・恋愛・結婚・コミュニティ作りまで。生活面のリアルな見通しを立てておきましょう。</p>
+        <span class="step-num" style="font-size: 2.5rem; font-weight: bold; color: rgba(64,145,108,0.2); display: block; line-height: 1;">03</span>
+        <h3 style="margin: 10px 0; color: #1b4332;">暮らしの解像度を上げる</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">単語だけでなく、渡加後の自立、ビザや恋愛事情、コミュニティ作りまで。生活面のリアルな見通しを立てられます。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-soft">
+<section class="section-soft" style="padding: 60px 0; background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
   <div class="container">
-    <div class="section-head">
-      <span class="kicker">Start here</span>
-      <h2 style="font-size:clamp(22px,3vw,28px);">今日はどちらから始めますか?</h2>
+    <div class="section-head" style="text-align: center; margin-bottom: 40px;">
+      <span class="kicker" style="color: #40916c; font-weight: bold; font-size: 0.9rem;">Start here</span>
+      <h2 style="font-size:clamp(22px,3vw,28px); color: #1b4332;">今日はどちらから始めますか?</h2>
     </div>
 
-    <div class="grid-3" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
       <a href="quiz.html" class="link-card">
         <span class="icon-tag">🩺</span>
         <h3>単語・定型文クイズ</h3>
-        <p>臨床現場でよく使う英語フレーズ50問から、ランダムに10問出題。4択形式で正しい日本語の意味を選びます。</p>
-        <span class="go">クイズを始める →</span>
+        <p style="color: #64748b; font-size: 0.95rem;">「臨床短文フレーズ50問」または新設の「現場用アナトミー単語50問」から自由に選んで挑戦。完全ランダムの4択形式です。</p>
+        <span class="go">クイズに挑戦する →</span>
       </a>
       <a href="column.html" class="link-card">
         <span class="icon-tag">🍁</span>
         <h3>カナダ生活コラム</h3>
-        <p>一人暮らしの自立、恋愛事情、結婚とビザ、コミュニティ作り。渡加後の暮らしを具体的にイメージするための読み物です。</p>
+        <p style="color: #64748b; font-size: 0.95rem;">一人暮らしの自立、恋愛事情、結婚とビザ、コミュニティ作り。渡加後のリアルな海外暮らしをイメージするための読み物です。</p>
         <span class="go">コラムを読む →</span>
       </a>
     </div>
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="container">
+<footer class="site-footer" style="padding: 30px 0; border-top: 1px solid #e2e8f0; font-size: 0.85rem; color: #718096; background: white;">
+  <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
     <span>© 2026 Therapist English for Canada</span>
     <span>カナダで働くセラピストを目指す方のための英語学習サイト</span>
   </div>
