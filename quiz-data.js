@@ -1,10 +1,7 @@
 /* =========================================================
-   セラピー現場でよく使う英語フレーズ 50問
-   カテゴリごとに10問ずつ。誤答選択肢は同じカテゴリ内の
-   他の正解からランダムに3つ選び、紛らわしさを保つ。
+   モード1: セラピー現場でよく使う英語フレーズ 50問 (短文)
    ========================================================= */
-
-   const QUESTION_BANK = [
+const QUESTION_BANK = [
     // ---- 体位・姿勢 (position) ----
     { en: "Please lie on your back.", ja: "仰向けになってください", cat: "position" },
     { en: "Please lie on your stomach.", ja: "うつ伏せになってください", cat: "position" },
@@ -27,7 +24,7 @@
     { en: "Try to touch your toes.", ja: "つま先に触れてみてください", cat: "movement" },
     { en: "Please walk slowly toward me.", ja: "ゆっくり私の方に歩いてください", cat: "movement" },
     { en: "Please take a small step forward.", ja: "小さく一歩前に出てください", cat: "movement" },
-    { en: "Please relax your shoulders.", ja: "肩の力を抜いてください", cat: "movement" },
+    { en: "Please relax your shoulders.", ja: "肩の力を抜してください", cat: "movement" },
   
     // ---- 痛み・感覚の確認 (assessment) ----
     { en: "Does it hurt here?", ja: "ここは痛みますか?", cat: "assessment" },
@@ -64,31 +61,103 @@
     { en: "You're doing great, keep going.", ja: "よくできています、続けましょう", cat: "counseling" },
     { en: "Please let me know if it becomes too painful.", ja: "痛みが強くなったら教えてください", cat: "counseling" },
     { en: "We'll take it step by step.", ja: "一歩ずつ進めていきましょう", cat: "counseling" },
-  ];
-  
-  /* Fisher–Yates shuffle */
-  function shuffleArray(arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+];
+
+/* =========================================================
+   【新設】モード2: 臨床現場必須の重要英単語 50問 (解剖学・症状表現)
+   ========================================================= */
+const WORD_BANK = [
+    // -- 筋肉・骨・部位 (anatomy) --
+    { en: "Trapezius", ja: "僧帽筋", cat: "anatomy" },
+    { en: "Scapula", ja: "肩甲骨", cat: "anatomy" },
+    { en: "Lumbar", ja: "腰椎・腰の", cat: "anatomy" },
+    { en: "Gluteus maximus", ja: "大臀筋", cat: "anatomy" },
+    { en: "Hamstrings", ja: "ハムストリングス（大腿二頭筋群）", cat: "anatomy" },
+    { en: "Piriformis", ja: "梨状筋", cat: "anatomy" },
+    { en: "Rotator cuff", ja: "回旋筋腱板（ローテーターカフ）", cat: "anatomy" },
+    { en: "Cervical", ja: "頸椎・首の", cat: "anatomy" },
+    { en: "Pelvis", ja: "骨盤", cat: "anatomy" },
+    { en: "Clavicle", ja: "鎖骨", cat: "anatomy" },
+    { en: "Gastrocnemius", ja: "腓腹筋（ふくらはぎ）", cat: "anatomy" },
+    { en: "Quadriceps", ja: "大腿四頭筋", cat: "anatomy" },
+    { en: "Spine", ja: "脊椎（背骨）", cat: "anatomy" },
+    { en: "Psoas major", ja: "大腰筋", cat: "anatomy" },
+    { en: "Latissimus dorsi", ja: "広背筋", cat: "anatomy" },
+
+    // -- 症状・状態 (symptoms) --
+    { en: "Throbbing pain", ja: "ズキズキする波のある痛み", cat: "symptoms" },
+    { en: "Dull ache", ja: "重い痛み・鈍痛", cat: "symptoms" },
+    { en: "Sharp pain", ja: "ピキッとする鋭い痛み", cat: "symptoms" },
+    { en: "Numbness", ja: "しびれ・感覚麻痺", cat: "symptoms" },
+    { en: "Stiffness", ja: "凝り・張り・強張（こわば）り", cat: "symptoms" },
+    { en: "Muscle cramp", ja: "筋肉の痙攣・足のつり", cat: "symptoms" },
+    { en: "Sprain", ja: "捻挫（ねんざ）", cat: "symptoms" },
+    { en: "Strain", ja: "肉離れ・筋違え", cat: "symptoms" },
+    { en: "Knot", ja: "凝りのかたまり・結節", cat: "symptoms" },
+    { en: "Swelling", ja: "腫れ・浮腫（むくみ）", cat: "symptoms" },
+    { en: "Soreness", ja: "筋肉痛・（使いすぎによる）ジンジンする痛み", cat: "symptoms" },
+    { en: "Inflammation", ja: "炎症", cat: "symptoms" },
+    { en: "Chronic pain", ja: "慢性的な痛み", cat: "symptoms" },
+    { en: "Acute pain", ja: "急性の痛み", cat: "symptoms" },
+    { en: "Tightness", ja: "突っ張り・緊張感", cat: "symptoms" },
+
+    // -- 施術・アクション (techniques) --
+    { en: "Palpate", ja: "触診する・手で触って診る", cat: "techniques" },
+    { en: "Apply pressure", ja: "圧をかける・指圧する", cat: "techniques" },
+    { en: "Effleurage", ja: "軽擦法（なでさする基本動作）", cat: "techniques" },
+    { en: "Kneading", ja: "揉捏法（こねるように揉む動作）", cat: "techniques" },
+    { en: "Deep tissue", ja: "深層組織（への強いアプローチ）", cat: "techniques" },
+    { en: "Stretch", ja: "ストレッチする・伸ばす", cat: "techniques" },
+    { en: "Flex", ja: "（関節などを）曲げる・屈曲させる", cat: "techniques" },
+    { en: "Extend", ja: "（関節などを）伸ばす・伸展させる", cat: "techniques" },
+    { en: "Rotate", ja: "回旋させる・回す", cat: "techniques" },
+    { en: "Release", ja: "（緊張を）解放する・緩める", cat: "techniques" },
+
+    // -- 院内会話・運営 (clinic) --
+    { en: "Draping", ja: "ドレーピング（シーツで露出部以外を覆う技術）", cat: "clinic" },
+    { en: "Consent form", ja: "同意書・インフォームドコンセント", cat: "clinic" },
+    { en: "Intake form", ja: "問診票・初診カルテ", cat: "clinic" },
+    { en: "Medical history", ja: "既往歴・病歴", cat: "clinic" },
+    { en: "Insurance claim", ja: "保険請求", cat: "clinic" },
+    { en: "Contraindication", ja: "禁忌（施術を行ってはいけない状態）", cat: "clinic" },
+    { en: "Referral", ja: "（医師からの）紹介状", cat: "clinic" },
+    { en: "Appointment", ja: "予約", cat: "clinic" },
+    { en: "Prone position", ja: "腹臥位（うつ伏せ姿勢）", cat: "clinic" },
+    { en: "Supine position", ja: "仰臥位（仰向け姿勢）", cat: "clinic" }
+];
+
+/* Fisher–Yates shuffle (共通シャッフルロジック) */
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
+  return a;
+}
+
+/**
+ * クイズセットを構築する関数
+ * @param {string} mode - "phrase" (短文) または "word" (単語単体)
+ * @param {number} n - 出題問数 (デフォルト10問)
+ */
+function buildQuizSet(mode = "phrase", n = 10) {
+  // モードに応じて使用するデータバンクを切り替え
+  const currentBank = (mode === "word") ? WORD_BANK : QUESTION_BANK;
   
-  /**
-   * n問をランダムに選び、各問に4択(正解1＋同カテゴリの誤答3)を付与して返す
-   */
-  function buildQuizSet(n = 10) {
-    const picked = shuffleArray(QUESTION_BANK).slice(0, n);
-    return picked.map((q) => {
-      const sameCategoryOthers = QUESTION_BANK.filter(
-        (item) => item.cat === q.cat && item.ja !== q.ja
-      );
-      const distractors = shuffleArray(sameCategoryOthers)
-        .slice(0, 3)
-        .map((d) => d.ja);
-      const choices = shuffleArray([q.ja, ...distractors]);
-      return { en: q.en, answer: q.ja, choices };
-    });
-  }
+  const picked = shuffleArray(currentBank).slice(0, n);
+  return picked.map((q) => {
+    // 誤答(ディストラクター)を同じデータバンクの同カテゴリから抽出
+    const sameCategoryOthers = currentBank.filter(
+      (item) => item.cat === q.cat && item.ja !== q.ja
+    );
+    
+    const distractors = shuffleArray(sameCategoryOthers)
+      .slice(0, 3)
+      .map((d) => d.ja);
+      
+    // 4つの選択肢をシャッフル
+    const choices = shuffleArray([q.ja, ...distractors]);
+    return { en: q.en, answer: q.ja, choices };
+  });
+}
