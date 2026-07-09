@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単語・定型文クイズ | Therapist English for Canada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">Therapist English</span>
+      <span class="brand-sub">for Canada</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="quiz.html" class="active">単語クイズ</a>
+      <a href="column.html">生活コラム</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:48px; padding-bottom:0;">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:24px;">
+      <span class="kicker">Vocabulary Quiz</span>
+      <h1 style="font-size:clamp(24px,3.4vw,32px);">臨床現場の英語フレーズ 4択クイズ</h1>
+      <p style="color:var(--color-muted); font-size:15px; max-width:56ch;">
+        施術・カウンセリングの現場でよく使う英語の指示文やフレーズが出題されます。
+        全50問からランダムに10問出題。意味として正しい日本語を選んでください。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="container">
+    <div class="quiz-wrap">
+
+      <!-- スタート画面 -->
+      <div id="quiz-start" class="quiz-card" style="text-align:center;">
+        <div class="hero-eyebrow">全50問 / ランダム10問出題</div>
+        <h2 style="font-size:22px;">準備はいいですか?</h2>
+        <p style="color:var(--color-muted); font-size:14.5px; max-width:44ch; margin:0 auto 26px;">
+          英語のフレーズが1問ずつ表示されます。正しい日本語の意味を4つの中から選んでください。
+        </p>
+        <button class="btn btn-primary" id="start-btn" style="margin:0 auto;">クイズを始める</button>
+      </div>
+
+      <!-- 出題画面 -->
+      <div id="quiz-play" class="hidden">
+        <div class="quiz-meta">
+          <span id="q-counter">問題 1 / 10</span>
+          <span id="q-score">正解 0</span>
+        </div>
+        <div class="quiz-progress-track">
+          <div class="quiz-progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-question-label">この英文の意味は?</div>
+          <div class="quiz-question-en" id="question-en">—</div>
+          <div class="quiz-choices" id="choices-wrap"></div>
+          <div class="quiz-feedback" id="feedback"></div>
+          <div class="quiz-footer-actions">
+            <button class="btn btn-primary hidden" id="next-btn">次の問題へ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 結果画面 -->
+      <div id="quiz-result" class="quiz-card quiz-result hidden">
+        <div class="hero-eyebrow">RESULT</div>
+        <h2 style="font-size:22px;">お疲れさまでした</h2>
+        <span class="score-num"><span id="final-score">0</span> / 10</span>
+        <p id="result-comment" style="color:var(--color-muted); font-size:15px;"></p>
+        <div class="quiz-result-actions">
+          <button class="btn btn-primary" id="retry-btn">もう一度挑戦する</button>
+          <a href="column.html" class="btn btn-ghost">生活コラムを読む</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 Therapist English for Canada</span>
+    <span>カナダで働くセラピストを目指す方のための英語学習サイト</span>
+  </div>
+</footer>
+
+<script src="quiz-data.js"></script>
+<script>
+  const TOTAL_QUESTIONS = 10;
+  let quizSet = [];
+  let currentIndex = 0;
+  let correctCount = 0;
+  let answered = false;
+
+  const startScreen = document.getElementById('quiz-start');
+  const playScreen = document.getElementById('quiz-play');
+  const resultScreen = document.getElementById('quiz-result');
+
+  const qCounter = document.getElementById('q-counter');
+  const qScore = document.getElementById('q-score');
+  const progressFill = document.getElementById('progress-fill');
+  const questionEn = document.getElementById('question-en');
+  const choicesWrap = document.getElementById('choices-wrap');
+  const feedback = document.getElementById('feedback');
+  const nextBtn = document.getElementById('next-btn');
+
+  document.getElementById('start-btn').addEventListener('click', startQuiz);
+  document.getElementById('retry-btn').addEventListener('click', startQuiz);
+  nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    if (currentIndex >= quizSet.length) {
+      showResult();
+    } else {
+      renderQuestion();
+    }
+  });
+
+  function startQuiz() {
+    quizSet = buildQuizSet(TOTAL_QUESTIONS);
+    currentIndex = 0;
+    correctCount = 0;
+    startScreen.classList.add('hidden');
+    resultScreen.classList.add('hidden');
+    playScreen.classList.remove('hidden');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    answered = false;
+    const q = quizSet[currentIndex];
+    qCounter.textContent = `問題 ${currentIndex + 1} / ${quizSet.length}`;
+    qScore.textContent = `正解 ${correctCount}`;
+    progressFill.style.width = `${(currentIndex / quizSet.length) * 100}%`;
+    questionEn.textContent = q.en;
+    feedback.className = 'quiz-feedback';
+    feedback.textContent = '';
+    nextBtn.classList.add('hidden');
+
+    choicesWrap.innerHTML = '';
+    q.choices.forEach((choice) => {
+      const btn = document.createElement('button');
+      btn.className = 'btn-quiz-choice';
+      btn.textContent = choice;
+      btn.addEventListener('click', () => selectAnswer(btn, choice, q.answer));
+      choicesWrap.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(btn, choice, correctAnswer) {
+    if (answered) return;
+    answered = true;
+
+    const allButtons = choicesWrap.querySelectorAll('.btn-quiz-choice');
+    allButtons.forEach((b) => { b.disabled = true; });
+
+    if (choice === correctAnswer) {
+      btn.classList.add('correct');
+      correctCount++;
+      feedback.textContent = '正解です。';
+      feedback.className = 'quiz-feedback show is-correct';
+    } else {
+      btn.classList.add('incorrect');
+      feedback.textContent = `不正解です。正しい意味は「${correctAnswer}」です。`;
+      feedback.className = 'quiz-feedback show is-incorrect';
+      allButtons.forEach((b) => {
+        if (b.textContent === correctAnswer) b.classList.add('correct');
+      });
+    }
+
+    qScore.textContent = `正解 ${correctCount}`;
+    progressFill.style.width = `${((currentIndex + 1) / quizSet.length) * 100}%`;
+    nextBtn.classList.remove('hidden');
+    nextBtn.textContent = currentIndex === quizSet.length - 1 ? '結果を見る' : '次の問題へ';
+  }
+
+  function showResult() {
+    playScreen.classList.add('hidden');
+    resultScreen.classList.remove('hidden');
+    document.getElementById('final-score').textContent = correctCount;
+
+    const comment = document.getElementById('result-comment');
+    const ratio = correctCount / quizSet.length;
+    if (ratio >= 0.9) {
+      comment.textContent = '素晴らしい結果です。臨床現場で使う表現がしっかり身についています。';
+    } else if (ratio >= 0.6) {
+      comment.textContent = '良い調子です。間違えたフレーズをもう一度復習してみましょう。';
+    } else {
+      comment.textContent = '焦らなくて大丈夫です。繰り返し挑戦して少しずつ覚えていきましょう。';
+    }
+  }
+</script>
+
+</body>
+</html>
