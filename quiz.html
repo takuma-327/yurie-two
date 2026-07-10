@@ -7,149 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  /* 既存のデザインを崩さず、アプリ感を劇的にオシャレにする上書きスタイル */
-  body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: 0.02em;
-    background-color: #f4f7f6;
-  }
-  .brand-mark {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    color: #1b4332;
-  }
-  .quiz-wrap {
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .quiz-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    border: 1px solid #e2e8f0;
-  }
-  .quiz-question-en {
-    font-family: 'Fraunces', -apple-system, BlinkMacSystemFont, serif;
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    color: #1b4332;
-    font-weight: 600;
-    text-align: center;
-    margin: 20px 0 30px;
-    line-height: 1.3;
-    word-break: break-word;
-  }
-  /* 4択ボタンのデザインを極上にする */
-  .btn-quiz-choice {
-    display: block;
-    width: 100%;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 0.95rem;
-    text-align: left;
-    font-weight: 500;
-    color: #2d3748;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: all 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  @media (hover: hover) {
-    .btn-quiz-choice:hover:not(:disabled) {
-      border-color: #40916c;
-      background-color: #f0fdf4;
-    }
-  }
-  .btn-quiz-choice.correct {
-    background-color: #ebfbee !important;
-    border-color: #2f9e44 !important;
-    color: #2f9e44 !important;
-    font-weight: 700;
-  }
-  .btn-quiz-choice.incorrect {
-    background-color: #fff5f5 !important;
-    border-color: #e03131 !important;
-    color: #e03131 !important;
-  }
-  .btn-primary {
-    background-color: #40916c !important;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 15px 30px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(64, 145, 108, 0.2);
-    transition: all 0.2s ease;
-  }
-  .btn-primary:hover {
-    background-color: #1b4332 !important;
-  }
-  .quiz-progress-track {
-    background: #e2e8f0;
-    height: 6px;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .quiz-progress-fill {
-    background: #40916c;
-    height: 100%;
-    width: 0%;
-    transition: width 0.3s ease;
-  }
-  .quiz-feedback {
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    margin-top: 15px;
-    font-weight: 500;
-    display: none;
-  }
-  .quiz-feedback.show { display: block; }
-  .quiz-feedback.is-correct { background: #ebfbee; color: #2b8a3e; border: 1px solid #b7ebc6; }
-  .quiz-feedback.is-incorrect { background: #fff5f5; color: #c92a2a; border: 1px solid #ffc9c9; }
-  
-  /* モード選択用の特別カードスタイル */
-  .mode-select-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 25px 0;
-  }
-  .mode-box {
-    border: 2px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 15px;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .mode-box input { display: none; }
-  .mode-box.selected {
-    border-color: #40916c;
-    background-color: #f0fdf4;
-  }
-  .mode-title {
-    font-weight: bold;
-    color: #1b4332;
-    font-size: 1rem;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .mode-desc {
-    font-size: 0.85rem;
-    color: #64748b;
-  }
-  .hidden { display: none !important; }
-</style>
 </head>
 <body>
 
@@ -160,11 +17,11 @@
       <span class="brand-sub">for Canada</span>
     </a>
     <nav class="main-nav">
-  <a href="index.html">ホーム</a>
-  <a href="quiz.html">臨床クイズ</a>
-  <a href="ielts-quiz.html">IELTS単語</a>
-  <a href="column.html">コラム</a>
-</nav>
+      <a href="index.html">ホーム</a>
+      <a href="quiz.html" class="active">臨床クイズ</a>
+      <a href="ielts-quiz.html">IELTS単語</a>
+      <a href="column.html">コラム</a>
+    </nav>
   </div>
 </header>
 
@@ -194,7 +51,7 @@
           <div class="mode-box" onclick="selectMode('word')">
             <input type="radio" id="mode-word" name="quiz-mode" value="word">
             <div class="mode-title">🦴 現場必須の重要英単語</div>
-            <div class="mode-desc">筋肉名（僧帽筋など）や骨の部位、痛みの症状、カルテ用語の英単語を日本語4択で出題。</div>
+            <div class="mode-desc">筋肉名（僧媽筋など）や骨の部位、痛みの症状、カルテ用語の英単語を日本語4択で出題。</div>
           </div>
         </div>
 
@@ -249,7 +106,7 @@
   let currentIndex = 0;
   let correctCount = 0;
   let answered = false;
-  let selectedModeValue = "phrase"; // デフォルト
+  let selectedModeValue = "phrase";
 
   const startScreen = document.getElementById('quiz-start');
   const playScreen = document.getElementById('quiz-play');
@@ -275,13 +132,11 @@
     }
   });
 
-  // URLからモードを取得し、もしパラメータがあればその場でクイズを自動スタートさせる
   function checkUrlParam() {
     const urlParams = new URLSearchParams(window.location.search);
     const modeParam = urlParams.get('mode');
     if (modeParam === 'word' || modeParam === 'phrase') {
       selectMode(modeParam);
-      // パラメータが存在する場合はスタート画面をスキップして直接自動開始
       startQuiz();
     }
   }
@@ -303,12 +158,10 @@
   }
 
   function startQuiz() {
-    // 選択されたモードのデータを読み込む
     quizSet = buildQuizSet(selectedModeValue, TOTAL_QUESTIONS);
     currentIndex = 0;
     correctCount = 0;
     
-    // 画面の表示切り替え
     startScreen.classList.add('hidden');
     resultScreen.classList.add('hidden');
     playScreen.classList.remove('hidden');
@@ -317,7 +170,7 @@
 
   function renderQuestion() {
     answered = false;
-    if (!quizSet || quizSet.length === 0) return; // データが入っていない場合の安全対策
+    if (!quizSet || quizSet.length === 0) return;
     
     const q = quizSet[currentIndex];
     
@@ -384,9 +237,7 @@
     }
   }
 
-  // 画面が開いた瞬間に、URLに「?mode=word」などが入っているかチェックして自動スタート
   checkUrlParam();
-</script>
 </script>
 
 </body>
