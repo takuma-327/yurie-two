@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS英単語クイズ | Therapist English for Canada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">Therapist English</span>
+      <span class="brand-sub">for Canada</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="quiz.html">単語クイズ</a>
+      <a href="column.html">生活コラム</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding: 64px 24px;">
+  <div class="quiz-wrap">
+    
+    <!-- プログレスバー -->
+    <div class="quiz-progress-track">
+      <div id="progress-fill" class="quiz-progress-fill"></div>
+    </div>
+    
+    <div class="quiz-meta">
+      <span id="quiz-count">Question 1 of 5</span>
+      <span id="quiz-score-live">正解: 0</span>
+    </div>
+
+    <!-- クイズ本体カード -->
+    <div id="quiz-card" class="quiz-card">
+      <div class="quiz-question-label">IELTS Essential Word</div>
+      <div id="question-word" class="quiz-question-en">Word</div>
+
+      <div class="quiz-choices" id="choices-container">
+        <button class="btn-quiz-choice" onclick="selectChoice(0)">選択肢 1</button>
+        <button class="btn-quiz-choice" onclick="selectChoice(1)">選択肢 2</button>
+        <button class="btn-quiz-choice" onclick="selectChoice(2)">選択肢 3</button>
+        <button class="btn-quiz-choice" onclick="selectChoice(3)">選択肢 4</button>
+      </div>
+
+      <div id="feedback" class="quiz-feedback"></div>
+      
+      <div class="quiz-footer-actions">
+        <button id="next-btn" class="btn btn-primary hidden" onclick="handleNext()">次の問題へ →</button>
+      </div>
+    </div>
+
+    <!-- クイズ結果画面（初期状態はhidden） -->
+    <div id="result-card" class="quiz-card quiz-result hidden">
+      <span class="quiz-question-label">Your Score</span>
+      <span id="final-score" class="score-num">0/5</span>
+      <p style="color: var(--color-muted); max-width: 45ch; margin: 0 auto 24px;">
+        クイズお疲れ様でした！カナダでのセラピスト就労、そして永住権申請にはIELTSの語彙力とアウトプット力が必須です。
+      </p>
+      
+      <!-- 結果画面でのアフィリエイト訴求 -->
+      <div style="background: var(--color-bg-soft-2); padding: 24px; border-radius: var(--radius-m); margin-bottom: 28px; text-align: left;">
+        <h4 style="color: var(--color-navy); margin-bottom: 8px;">🍁 移住の夢を引き寄せる次のステップ</h4>
+        <p style="font-size: 14px; color: var(--color-muted); margin-bottom: 16px;">
+          単語力をチェックしたら、次は実際の会話とライティングの対策。IELTS Generalに強い専門講師からフィードバックをもらうことで、スコアは爆発的に伸びます。
+        </p>
+        <a href="YOUR_AFFILIATE_LINK_HERE" class="btn btn-primary" style="width: 100%; justify-content: center; background: var(--color-green-deep);" target="_blank" rel="noopener">
+          おすすめのIELTS対策スクールを見る ≫
+        </a>
+      </div>
+
+      <div class="quiz-result-actions">
+        <a href="ielts-quiz.html" class="btn btn-ghost">もう一度挑戦する</a>
+        <a href="ielts.html" class="btn btn-ghost">対策コラムを読む</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 Therapist English for Canada</span>
+  </div>
+</footer>
+
+<script>
+  // 30代セラピスト（移住・臨床・生活）に最適化したIELTS頻出単語
+  const quizData = [
+    { word: "Alleviate", choices: ["悪化させる", "（痛みを）和らげる", "維持する", "診断する"], correct: 1 },
+    { word: "Chronic", choices: ["急性の", "一時的な", "慢性の", "致命的な"], correct: 2 },
+    { word: "Posture", choices: ["姿勢", "呼吸", "関節", "筋肉"], correct: 0 },
+    { word: "Immigration", choices: ["観光", "移住・移住手続き", "留学", "就労手続き"], correct: 1 },
+    { word: "Clavicle", choices: ["肩甲骨", "骨盤", "肋骨", "鎖骨"], correct: 3 }
+  ];
+
+  let currentIdx = 0;
+  let score = 0;
+  let answered = false;
+
+  function loadQuestion() {
+    answered = false;
+    const currentData = quizData[currentIdx];
+    
+    // UIアップデート
+    document.getElementById("quiz-count").innerText = `Question ${currentIdx + 1} of ${quizData.length}`;
+    document.getElementById("progress-fill").style.width = `${(currentIdx / quizData.length) * 100}%`;
+    document.getElementById("question-word").innerText = currentData.word;
+    
+    const container = document.getElementById("choices-container");
+    container.innerHTML = "";
+    
+    currentData.choices.forEach((choice, i) => {
+      const btn = document.createElement("button");
+      btn.className = "btn-quiz-choice";
+      btn.innerText = choice;
+      btn.onclick = () => selectChoice(i);
+      container.appendChild(btn);
+    });
+
+    document.getElementById("feedback").className = "quiz-feedback";
+    document.getElementById("feedback").style.display = "none";
+    document.getElementById("next-btn").classList.add("hidden");
+  }
+
+  function selectChoice(selectedIdx) {
+    if (answered) return;
+    answered = true;
+    
+    const currentData = quizData[currentIdx];
+    const buttons = document.getElementById("choices-container").children;
+    const feedback = document.getElementById("feedback");
+    
+    // 全ボタンの無効化と正誤判定の色付け
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+      if (i === currentData.correct) {
+        buttons[i].classList.add("correct");
+      }
+    }
+
+    if (selectedIdx === currentData.correct) {
+      score++;
+      document.getElementById("quiz-score-live").innerText = `正解: ${score}`;
+      feedback.innerText = "✨ 正解です！";
+      feedback.className = "quiz-feedback is-correct show";
+    } else {
+      buttons[selectedIdx].classList.add("incorrect");
+      feedback.innerText = `😢 不正解（正解: ${currentData.choices[currentData.correct]}）`;
+      feedback.className = "quiz-feedback is-incorrect show";
+    }
+
+    document.getElementById("next-btn").classList.remove("hidden");
+  }
+
+  function handleNext() {
+    currentIdx++;
+    if (currentIdx < quizData.length) {
+      loadQuestion();
+    } else {
+      // 終了画面処理
+      document.getElementById("progress-fill").style.width = "100%";
+      document.getElementById("quiz-card").classList.add("hidden");
+      document.getElementById("result-card").classList.remove("hidden");
+      document.getElementById("final-score").innerText = `${score} / ${quizData.length}`;
+    }
+  }
+
+  // クイズ初期化
+  loadQuestion();
+</script>
+
+</body>
+</html>
