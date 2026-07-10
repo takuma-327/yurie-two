@@ -628,3 +628,28 @@ body {
   font-size: 0.85rem;
   color: #64748b;
 }
+/* ===========================================================
+   Hero Area Adjustments (Button & Typography)
+   =========================================================== */
+/* 改行が詰まらないように最大幅を少し広げる */
+.hero h1 {
+  max-width: 22ch !important; 
+}
+
+/* 3つ目のIELTS専用ボタン（テーマカラーのグリーンを使用） */
+.btn-ielts {
+  background: var(--color-green);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn-ielts:hover {
+  background: var(--color-green-deep);
+}
+
+/* スマホ等でボタンが縦並びになった時の余白調整 */
+.hero-actions {
+  gap: 12px !important;
+}
+.hero-actions .btn {
+  margin: 0 !important; /* 個別のインライン余白をリセットして綺麗に並べる */
+}
