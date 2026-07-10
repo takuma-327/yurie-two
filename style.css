@@ -581,3 +581,50 @@ body {
   margin: 40px 0;
 }
 .cta-box h3 { color: var(--color-navy); margin-bottom: 12px; }
+/* ===========================================================
+   Quiz Page Extra App Styles
+   =========================================================== */
+.quiz-question-en {
+  font-family: 'Fraunces', -apple-system, BlinkMacSystemFont, serif;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: #1b4332;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0 30px;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* 臨床クイズ・モード選択用の特別カードスタイル */
+.mode-select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+}
+.mode-box {
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mode-box input { display: none; }
+.mode-box.selected {
+  border-color: #40916c;
+  background-color: #f0fdf4;
+}
+.mode-title {
+  font-weight: bold;
+  color: #1b4332;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mode-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+}
