@@ -653,3 +653,47 @@ body {
 .hero-actions .btn {
   margin: 0 !important; /* 個別のインライン余白をリセットして綺麗に並べる */
 }
+/* --- ヒーローセクションを2カラム（横並び）にする設定 --- */
+
+/* PCやタブレットでの見え方（画面幅769px以上の場合に横並びにする） */
+@media (min-width: 769px) {
+  .hero-flex-container {
+    display: flex;
+    align-items: center;    /* 縦方向の並びを中央揃えに */
+    justify-content: space-between;
+    gap: 50px;              /* テキストと画像の間隔 */
+  }
+
+  .hero-text-content {
+    flex: 1.2;              /* テキスト側を少し広く取る */
+    text-align: left;       /* テキストを左寄せに */
+  }
+
+  .hero-image-content {
+    flex: 0.8;              /* 画像側を少しスマートに */
+    display: flex;
+    justify-content: flex-end; /* 画像を右端に寄せる */
+  }
+}
+
+/* 画像自体の洗練されたスタイリング */
+.hero-aside-img {
+  width: 100%;
+  max-width: 450px;         /* 画像が大きくなりすぎないように制限 */
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;      /* 角を丸めて柔らかい印象に */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); /* 柔らかな陰影で高級感をプラス */
+  border: 4px solid #ffffff; /* セージグリーンに映える白い額縁効果 */
+}
+
+/* スマホ表示（画面幅768px以下）の時の微調整 */
+@media (max-width: 768px) {
+  .hero-image-content {
+    margin-top: 30px;       /* スマホではテキストの下に画像が来るので、少し隙間をあける */
+    text-align: center;
+  }
+  .hero-aside-img {
+    max-width: 320px;       /* スマホ画面に合わせたサイズ */
+  }
+}
