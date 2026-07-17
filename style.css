@@ -200,7 +200,7 @@ img { max-width: 100%; display: block; }
       rgba(255, 255, 255, 1) 40%, 
       rgba(255, 255, 255, 0) 75%
     ),
-    url('image_10.png') no-repeat right center; /* 女の子の画像名を設定してください */
+    url('image_5.png') no-repeat right center; /* 女の子の画像名を設定してください */
   
   background-size: cover; 
 }
