@@ -653,47 +653,85 @@ body {
 .hero-actions .btn {
   margin: 0 !important; /* 個別のインライン余白をリセットして綺麗に並べる */
 }
-/* --- ヒーローセクションを2カラム（横並び）にする設定 --- */
+/* ===========================================================
+   Hero Area background image Integrations (背景画像統合スタイル)
+   =========================================================== */
 
-/* PCやタブレットでの見え方（画面幅769px以上の場合に横並びにする） */
-@media (min-width: 769px) {
-  .hero-flex-container {
-    display: flex;
-    align-items: center;    /* 縦方向の並びを中央揃えに */
-    justify-content: space-between;
-    gap: 50px;              /* テキストと画像の間隔 */
-  }
-
-  .hero-text-content {
-    flex: 1.2;              /* テキスト側を少し広く取る */
-    text-align: left;       /* テキストを左寄せに */
-  }
-
-  .hero-image-content {
-    flex: 0.8;              /* 画像側を少しスマートに */
-    display: flex;
-    justify-content: flex-end; /* 画像を右端に寄せる */
-  }
+.hero {
+  position: relative;
+  padding: 80px 0;
+  min-height: 520px; /* PCでの表示バランスを美しく保つ高さ */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  
+  /* 既存のデフォルト背景（画像が万が一読み込めない場合のフォールバック） */
+  background: 
+    radial-gradient(circle at 85% 0%, var(--color-green-light) 0%, transparent 45%),
+    var(--color-bg);
 }
 
-/* 画像自体の洗練されたスタイリング */
-.hero-aside-img {
+/* ヒーローの疑似要素を使って背景画像を重ね、左側を徐々に白に透過させる */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1; /* テキスト（z-index: 2）の下に配置 */
+  
+  /* 
+    【ここがポイント！】
+    左から右へ、白（--color-bg）から完全な透明へとグラデーションをかけ、
+    その下（右側）に女の子の画像を配置します。
+  */
+  background: 
+    linear-gradient(to right, 
+      rgba(255, 255, 255, 1) 0%, 
+      rgba(255, 255, 255, 1) 35%, 
+      rgba(255, 255, 255, 0) 75%
+    ),
+    url('image_10.png') no-repeat right center; /* image_10.pngに画像名を適宜変更してください */
+  
+  background-size: contain; /* 横幅いっぱいに引き伸ばさず、女の子が綺麗に収まるサイズで右側に配置 */
+}
+
+/* 
+  テキストとボタンが入っているコンテナ。
+  背景画像（z-index: 1）の上に重ねるために z-index を指定します。
+*/
+.hero .container {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 450px;         /* 画像が大きくなりすぎないように制限 */
-  height: auto;
-  object-fit: cover;
-  border-radius: 20px;      /* 角を丸めて柔らかい印象に */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); /* 柔らかな陰影で高級感をプラス */
-  border: 4px solid #ffffff; /* セージグリーンに映える白い額縁効果 */
 }
 
-/* スマホ表示（画面幅768px以下）の時の微調整 */
+/* 
+  PC表示で背景画像の女の子と文字が重なってしまわないよう、
+  テキストエリアの最大幅を制限して左側にすっきり寄せます。
+*/
+.hero .container > * {
+  max-width: 620px;
+}
+
+/* --- スマホ表示（画面幅768px以下）での見え方の調整 --- */
 @media (max-width: 768px) {
-  .hero-image-content {
-    margin-top: 30px;       /* スマホではテキストの下に画像が来るので、少し隙間をあける */
-    text-align: center;
+  .hero {
+    padding: 60px 0;
+    min-height: auto; /* スマホでは高さ制限を解除 */
+    /* スマホでは文字の可読性を最優先するため、右上の淡いセージグリーンの円グラデーションのみにする */
+    background: 
+      radial-gradient(circle at 85% 0%, var(--color-green-light) 0%, transparent 60%),
+      var(--color-bg);
   }
-  .hero-aside-img {
-    max-width: 320px;       /* スマホ画面に合わせたサイズ */
+  
+  /* スマホ時は背景の女の子画像を非表示に */
+  .hero::before {
+    display: none;
+  }
+  
+  .hero .container > * {
+    max-width: 100%; /* テキストが中央でフル幅に広がるように */
   }
 }
